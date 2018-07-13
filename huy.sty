@@ -3,57 +3,80 @@
 %=====================================
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[english]{babel}
-\RequirePackage{setspace} % 
+\RequirePackage{setspace} 
+\RequirePackage{booktabs} % Advance table format
 \RequirePackage{appendix}
+\RequirePackage{graphicx,xcolor,subfigure,colortbl} % Graphics and colors
+\usepackage{etoolbox,refcount} %Create a new counter
+\usepackage{multicol} % Multi-column list
+\graphicspath{{./pictures/}}
 \RequirePackage[pdftex,bookmarks,colorlinks]{hyperref}%To have the bookmark list open and links in colour
     \ifx\HCode\UnDef\else\hypersetup{tex4ht}\fi
 \parindent 0ex % Remove paragraph indentation
-
-%====GRAPHIC==========
-\graphicspath{{./pictures/}}
-\RequirePackage{graphicx,xcolor,subfigure} % Graphics and colors
-
-
-
+\newlength{\xm}
+\setlength{\xm}{0.1\textwidth}
 
 %===TABLE===============
-\RequirePackage{booktabs} % Advance table format
-\newenvironment{tbl}[2][]
-	{%
-	\begin{table}[htbp]%
-	\centering
-		#1
-		\begin{tabular}{#2}
-	}
-	{%
-		\end{tabular}
-	\end{table}		
-	}
-	
-	
-%landscape table
-\RequirePackage{rotating} % To display tables in landscape
-\newenvironment{tbllandscape}[2][]
-	{%
-	\begin{sidewaystable}[htbp]%
-		#1
-		\begin{tabular}{#2}
-	}
-	{%
-		\end{tabular}
-	\end{sidewaystable}		
-	}
-	
+
+\newcommand{\tableStart}[2][]{%
+	\begin{table}[hbtp]
+	\centering #1
+	\begin{tabular}{ @{} #2 @{} }
+	\hline
+}	
+
+\newcommand{\tableEnd}{%
+	\end{tabular}
+	\end{table}
+}	
+
+\newcommand{\PtableStart}[2][]{%
+	\begin{table}[hbtp]
+	\centering #1
+	\begin{tabular}{ |c|c|c|c|c|c|c|c|c| }
+	\hline
+	\head{#2} & \head{Su} & \head{Mo} & \head{Tu} & \head{We} & \head{Th} & \head{Fr} & \head{Sa} \w
+}	
+
 	
 \renewcommand{\arraystretch}{1.5} %more breathing space in table
 \renewcommand{\tabcolsep}{0.2cm}
 \newcommand{\head}[1]{ \textnormal{ \textbf{#1} } }
+\newcommand{\w}{\\\hline}
+
+%====LIST=IN=MULTIPLE=COLUMNS===
 
 
 
-%%%%%%%%NEW%%%COMMAND%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{countitems}
+\newcounter{nextitemizecount}
+\newcommand{\setupcountitems}{%
+  \stepcounter{nextitemizecount}%
+  \setcounter{countitems}{0}%
+  \preto\item{\stepcounter{countitems}}%
+}
+\makeatletter
+\newcommand{\computecountitems}{%
+  \edef\@currentlabel{\number\c@countitems}%
+  \label{countitems@\number\numexpr\value{nextitemizecount}-1\relax}%
+}
+\newcommand{\nextitemizecount}{%
+  \getrefnumber{countitems@\number\c@nextitemizecount}%
+}
+\newcommand{\previtemizecount}{%
+  \getrefnumber{countitems@\number\numexpr\value{nextitemizecount}-1\relax}%
+}
+\makeatother    
+\newenvironment{AutoMultiColItemize}{%
+\ifnumcomp{\nextitemizecount}{>}{3}{\begin{multicols}{2}}{}%
+\setupcountitems\begin{itemize}}%
+{\end{itemize}%
+\unskip\computecountitems\ifnumcomp{\previtemizecount}{>}{3}{\end{multicols}}{}}
+%Usage:  \begin{AutoMultiColItemize}
 
 
+%==OTHER=COMMANDS===================
+\newcommand{\note}{ \paragraph{Note!} }
 
 
 
