@@ -13,6 +13,9 @@
 \RequirePackage[pdftex,bookmarks,colorlinks]{hyperref}%To have the bookmark list open and links in colour
     \ifx\HCode\UnDef\else\hypersetup{tex4ht}\fi
 \parindent 0ex % Remove paragraph indentation
+
+
+%===NEW LENGTH=====
 \newlength{\xm}
 \setlength{\xm}{0.1\textwidth}
 
@@ -30,50 +33,12 @@
 	\end{table}
 }	
 
-\newcommand{\PtableStart}[2][]{%
-	\begin{table}[hbtp]
-	\centering #1
-	\begin{tabular}{ |c|c|c|c|c|c|c|c|c| }
-	\hline
-	\head{#2} & \head{Su} & \head{Mo} & \head{Tu} & \head{We} & \head{Th} & \head{Fr} & \head{Sa} \w
-}	
 
 	
 \renewcommand{\arraystretch}{1.5} %more breathing space in table
 \renewcommand{\tabcolsep}{0.2cm}
 \newcommand{\head}[1]{ \textnormal{ \textbf{#1} } }
 \newcommand{\w}{\\\hline}
-
-%====LIST=IN=MULTIPLE=COLUMNS===
-
-
-
-\newcounter{countitems}
-\newcounter{nextitemizecount}
-\newcommand{\setupcountitems}{%
-  \stepcounter{nextitemizecount}%
-  \setcounter{countitems}{0}%
-  \preto\item{\stepcounter{countitems}}%
-}
-\makeatletter
-\newcommand{\computecountitems}{%
-  \edef\@currentlabel{\number\c@countitems}%
-  \label{countitems@\number\numexpr\value{nextitemizecount}-1\relax}%
-}
-\newcommand{\nextitemizecount}{%
-  \getrefnumber{countitems@\number\c@nextitemizecount}%
-}
-\newcommand{\previtemizecount}{%
-  \getrefnumber{countitems@\number\numexpr\value{nextitemizecount}-1\relax}%
-}
-\makeatother    
-\newenvironment{AutoMultiColItemize}{%
-\ifnumcomp{\nextitemizecount}{>}{3}{\begin{multicols}{2}}{}%
-\setupcountitems\begin{itemize}}%
-{\end{itemize}%
-\unskip\computecountitems\ifnumcomp{\previtemizecount}{>}{3}{\end{multicols}}{}}
-%Usage:  \begin{AutoMultiColItemize}
-
 
 %==OTHER=COMMANDS===================
 \newcommand{\note}{ \paragraph{Note!} }
