@@ -1,0 +1,25 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{codeLine}
+
+%===REQUIRED PACKAGE===
+\RequirePackage{listings,listing} %Syntax highlighting
+\RequirePackage{xpatch}
+\RequirePackage{xcolor} %color
+\RequirePackage{realboxes} %box color
+
+%===DEFINE STYLE===
+\definecolor{mygray}{rgb}{0.8,0.8,0.8}
+\lstdefinestyle{simple}{% defiine style "simple"
+	basicstyle=\footnotesize\ttfamily
+}
+\lstset{style=simple} % choose style "simple"
+%% Patch \lstinline to use \Colorbox
+\makeatletter
+\xpretocmd\lstinline{\Colorbox{mygray}\bgroup\appto\lst@DeInit{\egroup}}{}{}
+\makeatother
+
+%===DEFINE COMMANDS===
+\newcommand{\codex}{ \lstinline }
+
+%===OPTION===
+\endinput%%

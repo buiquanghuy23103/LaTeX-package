@@ -1,0 +1,27 @@
+\documentclass[11pt]{article}
+
+\usepackage[pdftex]{xcolor}
+\definecolor{vlgray}{gray}{0.9}
+\definecolor{lgray}{gray}{0.7}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable,listings}
+
+\newenvironment{shk}{%
+  \tcblisting{listing only,colback=vlgray,colframe=vlgray,enlarge
+  top by=0mm,top=-2mm,bottom=2mm,enhanced,
+  after={\par\vspace{0.5\baselineskip}\noindent},
+  overlay={\node[draw,fill= black,yshift=4pt,xshift=-10pt,left,text=white,
+         anchor=east,font=\footnotesize\bfseries] at (frame.south east)
+         {Shakespeare};}, 
+  listing options={basicstyle=\small\ttfamily,breaklines=true,
+    language=HTML,escapechar=|},}}
+{\endtcblisting}
+
+
+\begin{document}
+\begin{shk}
+Now is the |\fbox{winter}| of our discontent
+Made glorious summer by this sun of York;
+\end{shk}
+\end{document}

@@ -1,0 +1,20 @@
+%===STYLE===
+
+\lstdefinestyle{simple}{
+	backgroundcolor=\color{gray!50!},
+	captionpos=b,
+	breaklines=true,
+	showstringspaces=false,
+	basicstyle=\footnotesize\ttfamily
+}
+
+\lstset{style=simple}
+
+%===INPUT===
+\newcommand{\includecode}[2][c]{\lstinputlisting[caption=#2, escapechar=, style=custom#1]{#2}<!---->}
+
+%===ENVIRONMENT===
+
+\lstnewenvironment{code}[1][]%
+{}
+{}

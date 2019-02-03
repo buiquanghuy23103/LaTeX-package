@@ -1,0 +1,68 @@
+﻿\documentclass{article}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{caption}
+
+\definecolor{listinggray}{gray}{0.98}
+\definecolor{lbcolor}{rgb}{0.98,0.98,0.98}
+
+
+
+\lstset{
+    basicstyle=\footnotesize\ttfamily,
+    numberstyle=\tiny,
+    numberbychapter=true,    
+    numbersep=5pt,        
+    float=tp,     
+    tabsize=2,     
+    xleftmargin=5pt,
+    framexleftmargin=5pt,
+    extendedchars=true,         
+    breaklines=true,
+    frame=tb,   
+    showspaces=false,       
+    showtabs=false,        
+    backgroundcolor=\color{lbcolor},
+    rulecolor=\color[rgb]{0.78,0.78,0.78},
+    framerule=0.5pt,
+    showstringspaces=false,
+    keywordstyle=\color[rgb]{1.0,0,0}  
+}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35, 0.35,0.01}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+\lstnewenvironment{code}[1][]%
+    {\noindent\minipage{\linewidth} 
+            \lstset{#1}
+    }
+  {\endminipage} 
+
+\lstnewenvironment{tip}[1][caption=Tip]%
+    {
+    \noindent\minipage{\linewidth} 
+            \def\lstlistingautorefname{Tip}
+            \lstset{#1,keywordstyle=\color{black},numberbychapter=false,basicstyle=\footnotesize\ttfamily\color{black}\bfseries, backgroundcolor=\color{white},frame=none,captionpos=bc }
+    }
+ {\endminipage}
+
+\begin{document}
+
+\begin{code}[caption=Test]
+Code test..
+\end{code}
+
+....Look, just because I don't be givin' no man a foot massage don't make it right for Marsellus....
+
+\begin{tip}
+A tip!
+\end{tip}
+
+{\begin{figure}%
+This is what I want!
+\caption{}%
+\label{}%
+\end{figure}
+
+\end{document}
